@@ -1,0 +1,18 @@
+<h2>Выберите тип теплообменника</h2>
+<div id="exchanger-select">
+    <form action="/exchanger-selection" method="post">
+        <label for="shellTube" id="exchanger">Кожухотрубчатый теплообменник</label>
+        <input type="radio" name="exchanger" id="shellTube" value="shellTube">
+
+        <label for="plate" id="exchanger">Пластинчатый теплообменник</label>
+        <input type="radio" name="exchanger" id="plate" value="plate">
+
+        <label for="airCooler" id="exchanger">АВО</label>
+        <input type="radio" name="exchanger" id="airCooler" value="airCooler">
+
+        <div class="button">
+            <button type="submit">Сделать выбор</button>
+        </div>
+    </form>
+
+</div>

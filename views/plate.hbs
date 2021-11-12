@@ -1,0 +1,86 @@
+<h1>Пластинчатый теплообменник</h1>
+
+<div class="initial-data">
+    <form action="plate-exchanger-calculation" method="post">
+        <div class="hot-container">
+            <h3>Определение свойств горячего теплоносителя</h3>
+            {{#each element}}
+                <label for="elementNameHot">{{this.name}}</label>
+                <input type="radio" name="elementNameHot" id="elementNameHot" value={{this.name}}>
+            {{/each}}
+
+            <h3>Исходные данные</h3>
+            <div class="input-element-hot">
+                <label for="initialTempHot">Начальная температура гор.потока, &degC</label>
+                <input type="text" name="initialTempHot" id="initialTempHot" autocomplete="off">
+            </div>
+            <div class="input-element-hot">
+                <label for="finalTempHot">Конечная температура гор.потока, &degC</label>
+                <input type="text" name="finalTempHot" id="finalTempHot" autocomplete="off">
+            </div>
+            <div class="input-element-hot">
+                <label for="massFlowHot">Массовый расход гор.потока, кг/час</label>
+                <input type="text" name="massFlowHot" id="massFlowHot" autocomplete="off">
+            </div>
+        </div>
+        <hr>
+
+        <div class="cold-container">
+            <h3>Определение свойств холодного теплоносителя</h3>
+            {{#each element}}
+                <label for="elementNameCold">{{this.name}}</label>
+                <input type="radio" name="elementNameCold" id="elementNameCold" value={{this.name}}>
+            {{/each}}
+
+            <h3>Исходные данные</h3>
+            <div class="initial-element-cold">
+                <label for="initialTempCold">Начальная температура хол.потока, &degC</label>
+                <input type="text" name="initialTempCold" id="initialTempCold" autocomplete="off">
+            </div>
+            <div class="initial-element-cold">
+                <label for="finalTempCold">Конечная температура хол.потока, &degC</label>
+                <input type="text" name="finalTempCold" id="finalTempCold" autocomplete="off">
+            </div>
+            <div class="initial-element-cold">
+                <label for="massFlowCold">Массовый расход хол.потока, кг/ч</label>
+                <input type="text" name="massFlowCold" id="massFlowCold" autocomplete="off">
+            </div>
+        </div>
+        <hr>
+
+        <div class="construction-container">
+            <div class="construction-element">
+                <label for="plateWidth">Ширина пластины, м</label>
+                <input type="text" name="plateWidth" id="plateWidth" placeholder="0.2 - 0.3 м" autocomplete="off">
+            </div>
+            <div class="construction-element">
+                <label for="plateHeight">Длина пластины, м</label>
+                <input type="text" name="plateHeight" id="plateHeight" placeholder="0.3 - 2.5 м" autocomplete="off">
+            </div>
+            <div class="construction-element">
+                <label for="platesDistance">Расстояние между пластинами, мм</label>
+                <input type="text" name="plateDistance" id="platesDistance" placeholder="2.0 - 20 мм" autocomplete="off">
+            </div>
+            <div class="construction-element">
+                <label for="plateThickness">Толщина пластины, мм</label>
+                <input type="text" name="plateThickness" id="plateThickness" placeholder="0.2 - 3.0 мм" autocomplete="off">
+            </div>
+            <div class="construction-element">
+                <label for="chanelNumberHot">Количество каналов для прохода горячего потока</label>
+                <input type="text" name="chanelNumberHot" id="chanelNumberHot" placeholder="10 - 360" autocomplete="off">
+            </div>
+            <div class="construction-element">
+                <label for="chanelNumberCold">Количество каналов для прохода холодного потока</label>
+                <input type="text" name="chanelNumberCold" id="chanelNumberCold" placeholder="10 - 360" autocomplete="off">
+            </div>
+            <h4>Марка стали</h4>
+            <div class="construction-element">
+
+            </div>
+        </div>
+
+        <div class="button">
+            <button type="submit">Начать расчет</button>
+        </div>
+    </form>
+</div>
