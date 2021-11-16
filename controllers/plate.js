@@ -23,7 +23,10 @@ exports.getPlate = async (req, res) => {
 exports.postInitialData = async (req, res) => {
   try {
     const body = dataExtractor(req.body);
-    await interpolationMaterial(body.initialTempHot, body.elementNameHot);
+    const materialHot = await interpolationMaterial(body.initialTempHot, body.elementNameHot);
+    const materialCold = await interpolationMaterial(body.initialTempCold, body.elementNameCold);
+    console.log(materialCold);
+    console.log(materialHot);
     // plateSolver(body, materialHot, materialCold);
     res.send(body);
   } catch (e) {

@@ -17,7 +17,7 @@ const interpolationMaterial = async (temperature, materialName) => {
     }
   } else if (number < 100) {
     //В большую сторону
-    while (inBiggerDirection % 10 !== 0 || inLessDirection % 20 !== 0) {
+    while (inBiggerDirection % 10 !== 0) {
       inBiggerDirection++;
     }
     //В меньшую сторону
@@ -31,24 +31,27 @@ const interpolationMaterial = async (temperature, materialName) => {
   const lessMaterial = await Material.find({ $and: [{ temperature: inLessDirection }, { material: materialName }] });
 
   //Начинаем интерполяцию
-  const resultingMaterial = {
-    temperature,
-    kinematicViscosity:
-      lessMaterial[0].kinematicViscosity +
-      ((biggerMaterial[0].kinematicViscosity - lessMaterial[0].kinematicViscosity) / (inBiggerDirection - inLessDirection)) * (temperature - inLessDirection),
-    thermalConductivity:
-      lessMaterial[0].thermalConductivity +
-      ((biggerMaterial[0].thermalConductivity - lessMaterial[0].thermalConductivity) / (inBiggerDirection - inLessDirection)) * (temperature - inLessDirection),
-    dynamicViscosity:
-      lessMaterial[0].dynamicViscosity +
-      ((biggerMaterial[0].dynamicViscosity - lessMaterial[0].dynamicViscosity) / (inBiggerDirection - inLessDirection)) * (temperature - inLessDirection),
-    massDensity:
-      lessMaterial[0].massDensity +
-      ((biggerMaterial[0].massDensity - lessMaterial[0].massDensity) / (inBiggerDirection - inLessDirection)) * (temperature - inLessDirection),
-    material: materialName,
-  };
-
-  console.log(resultingMaterial);
+  if (inLessDirection !== inBiggerDirection) {
+    return {
+      temperature,
+      kinematicViscosity:
+        lessMaterial[0].kinematicViscosity +
+        ((biggerMaterial[0].kinematicViscosity - lessMaterial[0].kinematicViscosity) / (inBiggerDirection - inLessDirection)) * (temperature - inLessDirection),
+      thermalConductivity:
+        lessMaterial[0].thermalConductivity +
+        ((biggerMaterial[0].thermalConductivity - lessMaterial[0].thermalConductivity) / (inBiggerDirection - inLessDirection)) *
+          (temperature - inLessDirection),
+      dynamicViscosity:
+        lessMaterial[0].dynamicViscosity +
+        ((biggerMaterial[0].dynamicViscosity - lessMaterial[0].dynamicViscosity) / (inBiggerDirection - inLessDirection)) * (temperature - inLessDirection),
+      massDensity:
+        lessMaterial[0].massDensity +
+        ((biggerMaterial[0].massDensity - lessMaterial[0].massDensity) / (inBiggerDirection - inLessDirection)) * (temperature - inLessDirection),
+      material: materialName,
+    };
+  } else {
+    return biggerMaterial;
+  }
 };
 
 module.exports = interpolationMaterial;
