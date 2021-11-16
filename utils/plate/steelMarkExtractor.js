@@ -1,5 +1,5 @@
-const steelMarkExtractor = (steelProp) => {
-  console.log(steelProp);
+const steelMarkExtractor = steelProp => {
+  //console.log(steelProp);
 };
 
 module.exports = steelMarkExtractor;
