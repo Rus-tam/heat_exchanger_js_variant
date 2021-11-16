@@ -11,12 +11,15 @@ const resultingData = [];
 exports.getPlate = async (req, res) => {
   const materials = await Material.find().lean();
   const steelProp = await SteelProp.find().lean();
-  steelMarkExtractor(steelProp);
 
   const element = elementExtractor(materials);
+  const steelMarks = steelMarkExtractor(steelProp);
+  console.log(steelMarks);
+
   res.render('plate', {
     title: 'Пластинчатый теплообменник',
     element,
+    steelMarks,
   });
 };
 
@@ -25,9 +28,7 @@ exports.postInitialData = async (req, res) => {
     const body = dataExtractor(req.body);
     const materialHot = await interpolationMaterial(body.initialTempHot, body.elementNameHot);
     const materialCold = await interpolationMaterial(body.initialTempCold, body.elementNameCold);
-    console.log(materialCold);
-    console.log(materialHot);
-    // plateSolver(body, materialHot, materialCold);
+    plateSolver(body, materialHot, materialCold);
     res.send(body);
   } catch (e) {
     res.render('error', {

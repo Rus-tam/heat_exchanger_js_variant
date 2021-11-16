@@ -1,4 +1,4 @@
-const dataExtractor = (body) => {
+const dataExtractor = body => {
   return {
     elementNameHot: body.elementNameHot,
     initialTempHot: parseFloat(body.initialTempHot),
@@ -14,6 +14,7 @@ const dataExtractor = (body) => {
     plateThickness: parseFloat(body.plateThickness),
     chanelNumberHot: parseFloat(body.chanelNumberHot),
     chanelNumberCold: parseFloat(body.chanelNumberCold),
+    constructionMark: body.constructionMark,
   };
 };
 

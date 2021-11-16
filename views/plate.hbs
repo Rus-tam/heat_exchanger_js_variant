@@ -74,8 +74,11 @@
                 <input type="text" name="chanelNumberCold" id="chanelNumberCold" placeholder="10 - 360" autocomplete="off">
             </div>
             <h4>Марка стали</h4>
-            <div class="construction-element">
-
+            <div class="construction-mark">
+              {{# each steelMarks}}
+                <label for=constructionMark">{{this.mark}}</label>
+                <input type="radio" name="constructionMark" id="constructionMark" value={{this.mark}}>
+              {{/each}}
             </div>
         </div>
 
