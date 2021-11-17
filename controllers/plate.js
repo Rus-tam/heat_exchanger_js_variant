@@ -4,17 +4,16 @@ const dataExtractor = require('../utils/plate/dataExtractor');
 const steelMarkExtractor = require('../utils/plate/steelMarkExtractor');
 const interpolationMaterial = require('../utils/interpolationMaterial');
 const Material = require('../model/material');
-const SteelProp = require('../model/steelProp');
+const ConstrProp = require('../model/constrProp');
 
 const resultingData = [];
 
 exports.getPlate = async (req, res) => {
   const materials = await Material.find().lean();
-  const steelProp = await SteelProp.find().lean();
+  const constProp = await ConstrProp.find().lean();
 
   const element = elementExtractor(materials);
-  const steelMarks = steelMarkExtractor(steelProp);
-  console.log(steelMarks);
+  const steelMarks = steelMarkExtractor(constProp);
 
   res.render('plate', {
     title: 'Пластинчатый теплообменник',
@@ -25,10 +24,11 @@ exports.getPlate = async (req, res) => {
 
 exports.postInitialData = async (req, res) => {
   try {
+    const constProp = await ConstrProp.find().lean();
     const body = dataExtractor(req.body);
     const materialHot = await interpolationMaterial(body.initialTempHot, body.elementNameHot);
     const materialCold = await interpolationMaterial(body.initialTempCold, body.elementNameCold);
-    plateSolver(body, materialHot, materialCold);
+    plateSolver(body, materialHot, materialCold, constProp);
     res.send(body);
   } catch (e) {
     res.render('error', {
